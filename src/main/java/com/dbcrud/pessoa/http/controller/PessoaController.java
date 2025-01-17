@@ -26,7 +26,7 @@ public class PessoaController {
         return pessoaService.salvar(pessoa);
     }
 
-    @GetMapping // Usado para consulta
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Pessoa> listaPessoa() {
         return pessoaService.listaPessoa();

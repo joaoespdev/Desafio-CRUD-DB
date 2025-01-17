@@ -15,7 +15,7 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     public Pessoa salvar(Pessoa pessoa){
-        return pessoaRepository.save(pessoa); //Serve tanto para salvar quanto atualizar
+        return pessoaRepository.save(pessoa); //Salvar & Atualizar
     }
 
     public List<Pessoa> listaPessoa() {

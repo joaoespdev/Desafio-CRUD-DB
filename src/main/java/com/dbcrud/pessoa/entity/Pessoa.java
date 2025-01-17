@@ -1,5 +1,8 @@
 package com.dbcrud.pessoa.entity;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,23 +17,30 @@ import java.util.List;
 @NoArgsConstructor // Criar construtor vazio
 @Builder // Ajudar na criação de objetos Pessoa
 @Entity // Informar que é uma entidade de banco de dados
+@Schema(description = "Entidade que representa uma pessoa")
 public class Pessoa implements Serializable {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO) //Criar id por pessoa auto
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Schema(hidden = true)
         private Long id;
 
-        @Column(name = "nome", nullable = false) //nullable false - obriga envio do campo nome
+        @Column(name = "nome", nullable = false)
+        @Schema(description = "Nome da pessoa", example = "João da Silva", required = true)
         private String nome;
 
         @Column(name = "cpf")
+        @Schema(description = "CPF da pessoa", example = "123.456.789-10")
         private String cpf;
 
         @Column(name = "idade", nullable = false)
+        @Schema(description = "Idade da pessoa", example = "30", required = true, minimum = "0")
         private int idade;
 
         @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinColumn(name = "pessoa_id")
+        @Schema(description = "Lista de endereços associados à pessoa")
+        @ArraySchema(schema = @Schema(implementation = Endereco.class))
         private List<Endereco> endereco;
 
         public Long getId() {
