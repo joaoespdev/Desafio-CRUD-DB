@@ -88,5 +88,5 @@ mvn -version
 ### 4. Configure o ambiente
 Certifique-se de que as variáveis de ambiente **JAVA_HOME** e **MAVEN_HOME** estão configuradas corretamente.<br></br>
 
-### 5. 🐱‍🚀 Teste a aplicação com Swagger
+### 5. 🐱‍🚀 Rode a aplicação e teste com Swagger
 http://localhost:8080/swagger-ui/index.html
