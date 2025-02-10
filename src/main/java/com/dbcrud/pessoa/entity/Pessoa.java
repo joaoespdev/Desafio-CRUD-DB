@@ -1,22 +1,18 @@
 package com.dbcrud.pessoa.entity;
 
+import com.dbcrud.pessoa.dto.EnderecoDTO;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Data //GetAndSetters e ToString automaticamente
-@AllArgsConstructor // Criar construtor com as propriedades de Pessoa
-@NoArgsConstructor // Criar construtor vazio
-@Builder // Ajudar na criação de objetos Pessoa
-@Entity // Informar que é uma entidade de banco de dados
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @Schema(description = "Entidade que representa uma pessoa")
 public class Pessoa implements Serializable {
 
@@ -29,8 +25,8 @@ public class Pessoa implements Serializable {
         @Schema(description = "Nome da pessoa", example = "João da Silva", required = true)
         private String nome;
 
-        @Column(name = "cpf")
-        @Schema(description = "CPF da pessoa", example = "123.456.789-10")
+        @Column(name = "cpf", nullable = false, unique = true)
+        @Schema(description = "CPF da pessoa", example = "123.456.789-10", required = true)
         private String cpf;
 
         @Column(name = "idade", nullable = false)
@@ -47,7 +43,7 @@ public class Pessoa implements Serializable {
                 return id;
         }
 
-        public void setId (Long id) {
+        public void setId(Long id) {
                 this.id = id;
         }
 
@@ -55,7 +51,7 @@ public class Pessoa implements Serializable {
                 return nome;
         }
 
-        public void setNome(String nome){
+        public void setNome(String nome) {
                 this.nome = nome;
         }
 
@@ -82,4 +78,5 @@ public class Pessoa implements Serializable {
         public void setEndereco(List<Endereco> endereco) {
                 this.endereco = endereco;
         }
+
 }
