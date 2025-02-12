@@ -3,6 +3,7 @@ package com.dbcrud.pessoa.controller;
 import com.dbcrud.pessoa.dto.EnderecoDTO;
 import com.dbcrud.pessoa.entity.Endereco;
 import com.dbcrud.pessoa.service.EnderecoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class EnderecoController {
     private EnderecoService enderecoService;
 
     @PostMapping
-    public ResponseEntity<EnderecoDTO> criarEndereco(@RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<EnderecoDTO> criarEndereco(@Valid @RequestBody EnderecoDTO enderecoDTO) {
         Endereco endereco = enderecoService.criarEndereco(enderecoDTO.toEntity()); // Converter DTO para Entidade
         EnderecoDTO createdEndereco = new EnderecoDTO(endereco); // Converter Entidade para DTO
         return new ResponseEntity<>(createdEndereco, HttpStatus.CREATED);
@@ -45,7 +46,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDTO> atualizarEndereco(@PathVariable Long id, @RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@PathVariable Long id, @Valid @RequestBody EnderecoDTO enderecoDTO) {
         try {
             Endereco endereco = enderecoService.atualizarEndereco(id, enderecoDTO.toEntity()); // Atualizar com Entidade
             EnderecoDTO updatedEndereco = new EnderecoDTO(endereco); // Converter Entidade para DTO

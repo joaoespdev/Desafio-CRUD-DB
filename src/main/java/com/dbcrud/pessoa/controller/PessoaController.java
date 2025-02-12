@@ -3,6 +3,7 @@ package com.dbcrud.pessoa.controller;
 import com.dbcrud.pessoa.dto.PessoaDTO;
 import com.dbcrud.pessoa.entity.Pessoa;
 import com.dbcrud.pessoa.service.PessoaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class PessoaController {
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<PessoaDTO> salvar(@RequestBody Pessoa pessoa) {
+    public ResponseEntity<PessoaDTO> salvar(@Valid @RequestBody Pessoa pessoa) {
         Pessoa pessoaSalva = pessoaService.salvar(pessoa);
         PessoaDTO pessoaDTO = new PessoaDTO(pessoaSalva);
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaDTO);
@@ -57,7 +58,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarPessoa(@PathVariable("id") Long id, @RequestBody Pessoa pessoa){
+    public ResponseEntity<Void> atualizarPessoa(@PathVariable("id") Long id, @Valid @RequestBody Pessoa pessoa){
         Optional<Pessoa> pessoaBase = pessoaService.buscarPorId(id);
         if (pessoaBase.isPresent()) {
             modelMapper.map(pessoa, pessoaBase.get());
